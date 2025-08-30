@@ -1,0 +1,122 @@
+.sunset-theme {
+    --sunset-bg:linear-gradient(180deg, #ff9a76 0%, #ff6a88 40%, #d66d75 100% );
+    --sunset-surface:rgba(255,255,255,0.08);
+    --sunset-text:#9f4505;
+    --sunset-accent:#ffd26f;
+    --sunset-glow: 0 0 10px rgba(255,174,94,0.7), 0 0 20px rgba(255,99,72, 0.5);
+    --sunset-border:rgba(255,255,255,0.15);
+    --sunset-shadow:0 4px 20px rgba(0, 0, 0, 0.3);
+}
+body.sunset-theme {
+    background:var(--sunset-bg);
+    color:var(--sunset-text);
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.9s ease, color 0.9s ease;
+}
+.sunset-theme .card,
+.sunset-theme .bg-white,
+.sunset-theme .dark\:bg-surface {
+    background: var(--sunset-surface);
+    border: 1px solid var(--sunset-border);
+    box-shadow: var(--sunset-shadow);
+    backdrop-filter: blur(8px);
+    transition: all 0.7s ease;
+}
+.sunset-theme .card:hover{
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 25px rgba(255, 180,120,0.5);
+}
+.sunset-theme h1,
+.sunset-theme h2,
+.sunset-theme h3,
+.sunset-theme .neon-text{
+    color:var(--sunset-accent);
+    text-shadow: var(--sunset-glow);
+    animation: sunsetPulse 5s ease-in-out infinite;
+}
+.sunset-theme button {
+    background: linear-gradient(90deg, #ff9a76, #ff6a88);
+    color:#fff;
+    border:none;
+    padding:0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: var(--sunset-glow);
+    transition: all 0.6s ease;
+}
+.sunset-theme button:hover {
+    background: linear-gradient(90deg, #ffb347, #ff6a88);
+    transform: scale(1.09);
+    box-shadow: 0 0 15px rgba(255,150,100,0.8);
+}
+.sunset-theme #chat-box li > div {
+    border-radius: 16px;
+    animation: messageFade 0.6s ease;
+}
+.sunset-theme .bg-gradient-to-br.from-blue-600.to-cyan-500 {
+    background: linear-gradient(135deg, #ff9a76, #ff6a88) !important;
+}
+.sunset-theme .bg-gray-200.dark\:bg-gray-700 {
+    background: rgba(255,255,255,0.1) !important;
+}
+.sunset-theme input,
+.sunset-theme textarea {
+    background: rgba(255,255,255,0.15);
+    border:1px solid var(--sunset-border);
+    color: var(--sunset-text);
+    transition: all 0.6s ease;
+}
+.sunset-theme input:focus,
+.sunset-theme textarea:focus{
+    outline: none;
+    border-color:var(--sunset-accent);
+    box-shadow: 0 0 10px rgba(255,193, 120, 0.7);
+}
+.sunset-theme a{
+    color:var(--sunset-accent);
+    transition: color 0.6s ease, text-shadow 0.6s ease;
+}
+.sunset-theme a:hover{
+    color:#fff5e1;
+    text-shadow: 0 0 8px rgba(255,174, 94, 0.8);
+}
+@keyframes messageFade {
+    from {
+        transform: translateY(5px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes sunsetPulse {
+    0%, 100% {
+        text-shadow: 0 0 8px rgba(255,174,94,0.6), 0 0 16px rgba(255,99,72,0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255,199,140,0.9), 0 0 30px rgba(255,130,100,0.7);
+    }
+    
+}
+.sunset-theme ::-webkit-scrollbar {
+    width: 8px;
+}
+.sunset-theme ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#ff9a76, #ff6a88);
+    border-radius: 4px;
+}
+.sunset-theme ::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+}
+.sunset-theme header {
+position:relative;
+z-index:9999 !important;
+}
+.sunset-theme #dropdown-menu {
+position:absolute;
+z-index:10000 !important;
+}
+.sunset-theme .post-card {
+   background: linear-gradient(#ff9a76, #ff6a88);
+}

@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "dev": "node server.js",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "NODE_ENV=production node server.js",
+    "lint": "eslint .",
+    "format": "prettier -w ."
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "prettier": "^3.3.0"
+  },
+  "dependencies": {
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0"
+  }
+}

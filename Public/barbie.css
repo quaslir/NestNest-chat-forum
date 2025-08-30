@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+.barbie-theme {
+    --main-pink:#e0218a;
+    --pink-light: #f8b9d7;
+    --text-color:#333333;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom right, var(--pink-light), var(--main-pink));
+    background-repeat: no-repeat;
+    background-size: cover;
+    color:var(--text-color);
+}
+.barbie-theme h1,
+.barbie-theme h2,
+.barbie-theme h3,
+.barbie-theme h4,
+.barbie-theme h5,
+.barbie-theme h6 {
+    font-family: 'Pacifico', cursive;
+    color:var(--main-pink);
+    text-shadow: 0 0 4px rgba(255,255,255,0.6);
+    animation:glitter 3s infinite alternate;
+}
+.barbie-theme a{
+    color: var(--main-pink);
+    text-decoration: none;
+    text-shadow: 0 0 2px #ffd1e8;
+    transition: color 0.3s ease , text-shadow 0.3s ease;
+}
+.barbie-theme a:hover{
+    color:#ffffff;
+    text-shadow: 0 0 6px #ffffff;
+    text-decoration: none;
+}
+.barbie-theme button,
+.barbie-theme .btn {
+    background-color: var(--main-pink);
+    color:#ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255,182,193, 0.6);
+    transition: transform 0.3 ease, box-shadow 0.3 ease, background-color 0.3s ease, border-color 0.3s ease;
+    animation: sparkle-pulse 4s infinite alternate;
+}
+.barbie-theme button:hover,
+.barbie-theme .btn:hover {
+    background-color: #ffffff;
+    color:var(--main-pink);
+    border-color: var(--main-pink);
+    box-shadow: 0 0 12px rgba(255,255,255,0.8);
+    transform: translateY(-2px);
+    animation-play-state: paused;
+}
+.barbie-theme button:active,
+.barbie-theme .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 0 8px rgba(255,255,255,1);
+}
+.barbie-theme button:focus,
+.barbie-theme .btn:focus{
+    outline: none;
+    box-shadow: 0 0 8x #ffffff, 0 0 4px #ffffff;
+}
+.barbie-theme input,
+.barbie-theme textarea,
+.barbie-theme select{
+    background-color: #fff0fa;
+    color:#333333;
+    border: 1px solid #e8a8c8;
+    border-radius: 4px;
+    padding: 0.5em;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.barbie-theme input::placeholder,
+.barbie-theme textarea::placeholder{
+    color: #d295b0;
+}
+.barbie-theme input:focus,
+.barbie-theme textarea:focus,
+.barbie-theme select:focus {
+    outline: none;
+    border-color:var(--main-pink);
+    box-shadow: 0 0 6px rgba(255,192,203, 0.8);
+}
+.barbie-theme .text-gray-800,
+.barbie-theme .text-gray-700,
+.barbie-theme .text-gray-600,
+.barbie-theme .text-black {
+    color: #333333 !important;
+}
+.barbie-theme .text-red-600,
+.barbie-theme .text-red-500 {
+    color:#ff3370 !important;
+    text-shadow:  0 0 3px #ff99ae;
+}
+.barbie-theme .bg-white.shadow,
+.barbie-theme .bg-white.shadow-lg {
+    background-color: rgba(255,255,255, 0.9) !important;
+    color: #333333;
+    border: 2px solid var(--pink-light);
+    box-shadow: 0 0 12px rgba(240,160, 200, 0.5);
+}
+.barbie-theme .bg-white.rounded-lg.shadow-lg {
+    padding:1.5em;
+    animation: border-pulse 6s infinite alternate;
+}
+.barbie-theme .bg-white.rounded-lg.shadow-lg h1,
+.barbie-theme .bg-white.rounded-lg.shadow-lg h2{
+    color:var(--main-pink);
+    text-shadow: 0 0 4px #ffd1e8;
+}
+.barbie-theme header {
+    background: linear-gradient(to right, #f8b9d7, #e0218a);
+    border-bottom: 2px solid #ffffff;
+    box-shadow: 0 0 2px 8px rgba(255,182, 193, 0.5);
+}
+.barbie-theme header h1{
+    color: #ffffff;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 0 0 5px #ffccf0;
+}
+.barbie-theme header a{
+    color:#ffffff;
+}
+.barbie-theme a:hover {
+    color:#ffe6f7;
+    text-shadow: 0 0 4px #ffffff;
+    text-decoration: none;
+}
+@keyframes glitter {
+        0% {
+            text-shadow: 0 0 3px #ffd1e8;
+        }
+        50%{
+            text-shadow: 0 0 6px #ffffff;
+        }
+        100%{
+            text-shadow: 0 0 3px #ffd1e8;
+        }
+}
+@keyframes sparkle-pulse {
+    0%{
+        box-shadow: 0 0 6px rgba(255,182, 193, 0.4);
+    }
+    50%{
+        box-shadow: 0 0 12px rgba(255,255,255, 0.8);
+    }
+    100%{
+        box-shadow: 0 0 6px rgba(255,182,193,0.4);
+    }
+}
+@keyframes border-pulse {
+    0%{
+        border-color: var(--pink-light);
+        box-shadow: 0 0 10px var(--pink-light);
+    }
+    100%{
+        border-color: #ffffff;
+        box-shadow: 0 0 10px #ffffff;
+    }
+    
+}
+/* ===== Дропдаун меню в стиле Матрицы ===== */
+.matrix-theme .dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 10;
+}
+
+.matrix-theme .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.95);
+    border: 1px solid var(--matrix-green);
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+    padding: 0.5em 0;
+    min-width: 160px;
+    animation: matrix-dropdown-fade 0.25s ease-out forwards;
+}
+
+.matrix-theme .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.matrix-theme .dropdown-menu a {
+    display: block;
+    padding: 0.5em 1em;
+    color: var(--matrix-green);
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease;
+}
+
+.matrix-theme .dropdown-menu a:hover {
+    background-color: rgba(0, 255, 65, 0.1);
+    color: var(--matrix-light-green);
+    padding-left: 1.5em;
+    text-shadow: 0 0 5px var(--matrix-light-green);
+}
+
+/* Анимация появления */
+@keyframes matrix-dropdown-fade {
+    0% {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

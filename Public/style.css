@@ -1,0 +1,39 @@
+  body.dark{
+    background-color: #1a202c;
+    color: #f7fafc;
+}
+
+body.dark .bg-white{
+  background-color: #2d3748 !important;
+}
+body.dark input,
+body.dark textarea {
+  background-color: #4a5568;
+  color:white;
+}
+body.dark button{
+  background-color: #4a5568;
+}
+.group-hover\\:block{
+  display: block !important
+  ;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.card{
+  transition: all 0.5s ease;
+}
+.card:hover{
+  transform: translateY(-4px);
+  scale: 1.01;
+}
+.post-card{
+   transition: all 0.3s ease;
+}
+.post-card:hover{
+  box-shadow: 0 12px 30px rgba(255,150,100, 0.3);
+}
+.comment-input {
+  color: black;
+}

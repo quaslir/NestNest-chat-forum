@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestNest Casino 🎰</title>
+<script>
+        (function () {
+            const theme = localStorage.getItem('theme');
+            const html = document.documentElement;
+            const classes = [];
+
+            if(theme === 'cyberpunk') {
+                html.classList.add('dark');
+                classes.push('cyberpunk-theme');
+            }
+            else if(theme === 'barbie') {
+                classes.push('barbie-theme');
+            }
+            else if(theme === 'matrix') {
+                html.classList.add('dark');
+                classes.push('matrix-theme');
+            }
+            else if(theme === 'sunset') {
+                classes.push('sunset-theme');
+            }
+            else if(theme === 'dark'){
+                html.classList.add('dark');
+                classes.push('dark');
+            }
+            const observer = new MutationObserver(()=> {
+                const body = document.body;
+                if(body){
+                    body.classList.add(...classes);
+                    observer.disconnect();
+                }
+            });
+            observer.observe(document.documentElement, {childList:true, subtree: true});    
+        })();
+</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode:'class',
+            theme:{
+                extend:{
+                    colors:{
+                        background:'#0f172a',
+                        surface: '#1e293b',
+                        neon: '#00ffff',
+                        cyberPink: '#ff00ff',
+                        cyberYellow: '#ffff00',
+                    },
+                    fontFamily:{
+                        futuristic:['Orbitron', 'sans-serif']
+                    },
+                    animation:{
+                        pulseNeon: 'pulseNeon 2s ease-in-out infinite'
+                    },
+                    keyframes:{
+                        pulseNeon:{
+                            '0% 100%':{textShadow: '0 0 5px #00ffff, 0 0 10px #00ffff'},
+                            '50%':{textShadow: '0 0 20px #00ffff, 0 0 30px #00ffff'}
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .choice-btn {
+            transition: transform 0.3s ease , box-shadow 0.3s ease;
+        }
+        .choice-btn:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 10px rgba(255, 192, 203, 0.5);
+        }
+        .card {transition: transform 0.5s ease, box-shadow 0.5s ease;}
+        .card:hover{transform : scale(1.06); box-shadow: 0 0 15px rgba(0 ,255. 255, 0.5);}
+        .hidden {
+            display: none !important;
+
+        }
+    </style>
+    <link rel="stylesheet" href="cyberpunk.css">
+    <link rel="stylesheet" href="barbie.css">
+    <link rel="stylesheet" href="sunset.css">
+    <link rel="stylesheet" href="matrix.css">
+</head>
+<body class="bg-gray-100 dark:bg-background text-gray-800 dark:text-white min-h-screen flex flex-col">
+        <header class="p-4 bg-pink-600 text-white flex justify-between items-center shadow">
+            <h1 class="text-2xl font-bold">🎰 NestNest Casino</h1>
+            <div class="flex items-center gap-4">
+                <span id = 'balance' class="font-bold">🪙 Loading...</span>
+                <a href="forum.html" class="bg-white text-pink-600 px-3 py-1 rounded shadow hover:bg-pink-100">⬅ Back</a>
+            </div>
+        </header>
+
+        <main id = 'lobby' class="max-w-5xl mx-auto p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="card bg-gray-800 bg-opacity-50 p-5 rounded-lg text-center shadow">
+                    <div class="relative mb-4 h-40 rounded-lg overflow-hidden bg-gray-900 flex items-center justify-center">
+                        <img src="https://cdn.pixabay.com/photo/2020/04/07/07/40/slots-5012428_1280.jpg" alt="Slots" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-neon animate-pulseNeon">Slots</h3>
+                    <p class="text-gray-300 mb-4">Spin the reels of modern slots for a chance at big wins.</p>
+                    <button id = 'play-slots' class="play-game bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded-xl transition" data-game = "slots">Play</button>
+                </div>
+                <div class="card bg-gray-800 bg-opacity-50 p-5 rounded-lg text-center shadow">
+                    <div class="relative mb-4 h-40 rounded-lg overflow-hidden bg-gray-900 flex items-center justify-center">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/23/15/14/roulette-1003120_1280.jpg" alt="Roulette" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-neon animate-pulseNeon">Roulette</h3>
+                    <p class="text-gray-300 mb-4">Bet on your favorite colors and numbers, then spin the wheel!</p>
+                    <button id = 'play-roulette' class="play-game bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" data-game = "roulette">Play</button>
+                </div>
+                <div class="card bg-gray-800 bg-opacity-50 p-5 rounded-lg text-center shadow">
+                    <div class="relative mb-4 h-40 rounded-lg overflow-hidden bg-gray-900 flex items-center justify-center">
+                        <span class="text-6xl">🚀</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-neon animate-pulseNeon">Crash</h3>
+                    <p class="text-gray-300 mb-4">Multiply your bet and cash out before the graph crashes!</p>
+                    <button id = "play-crash" class="play-game bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" data-game = "crash">Play</button>
+                </div>
+
+                <div class="card bg-gray-800 bg-opacity-50 p-5 rounded-lg text-center shadow">
+                    <div class="relative mb-4 h-40 rounded-lg overflow-hidden bg-gray-900 flex items-center justify-center">
+                        <img src="https://cdn.pixabay.com/photo/2016/08/31/10/43/gold-1633073_640.jpg" alt="Coin Flip" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-neon animate-pulseNeon">Coin Flip</h3>
+                    <p class="text-gray-300 mb-4">Heads or tails? Flip the coin and test your luck!</p>
+                    <button id = 'play-coin' class="play-game bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" data-game = "coin">Play</button>
+                </div>
+
+                <div class="card bg-gray-800 bg-opacity-50 p-5 rounded-lg text-center shadow">
+                    <div class="relative mb-4 h-40 rounded-lg overflow-hidden bg-gray-900 flex items-center justify-center">
+                        <img src="https://cdn.pixabay.com/photo/2015/03/25/23/45/cube-689618_1280.jpg" alt="Dice" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-neon animate-pulseNeon">Dice</h3>
+                    <p class="text-gray-300 mb-4">Roll the dice and aim for a lucky seven to win!</p>
+                    <button class="play-game bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" data-game = "dice">Play</button>
+                </div>
+
+
+                <div class="card bg-gray-800 bg-opacity-50 p-5 rounded-lg text-center shadow">
+                    <div class="relative mb-4 h-40 rounded-lg overflow-hidden bg-gray-900 flex items-center justify-center">
+                        <img src="https://cdn.pixabay.com/photo/2015/08/28/05/15/las-vegas-911499_1280.jpg" alt="Slot Machines" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-neon animate-pulseNeon">Slot Machines</h3>
+                    <p class="text-gray-300 mb-4">Try classic slot machines and hit the 777 jackpot!</p>
+                    <button class="play-game bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded" data-game = "slot-machines">Play</button>
+                </div>
+                </div>
+                </main>
+                <main id = 'coinflip-game' class="max-w-6xl mx-auto p-6 w-full rounded text-white hidden">
+                <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl mb-4 font-bold">🎯 Coin Flip</h2>
+                <button class="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded text-white" id="back-to-lobby">⬅ Back to Games</button>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 font-semibold">Bet Amount (NestCoins)</label>
+                    <input type="number" id="bet-amount" min="1" value="10" class="w-full border rounded px-3 py-2 dark:bg-gray-700 dark:border-gray-600">
+                </div>
+                <div class="flex gap-4 mb-4">
+                    <button data-choice = "heads" class="choice-btn bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-700 flex-1">🪙 Heads</button>
+                    <button data-choice = "tails" class="choice-btn bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-700 flex-1">🪙 Tails</button>
+                </div>
+                <div id="result" class="text-center font-bold text-lg mt-4">Make your bet!</div>
+                <div id = 'history' class="mt-6">
+                    <h3 class="font-bold mb-2">📜 Last Bets</h3>
+                    <ul id = 'history-list' class="text-sm space-y-1 bg-gray-100 dark:bg-gray-700 p-3 rounded"></ul>
+                </div>
+        </main>
+           <main id = 'crash-game' class="max-w-6xl mx-auto p-6 w-full rounded text-white hidden">
+                <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl mb-4 font-bold">🚀 Crash</h2>
+                <button class="bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded text-white" id="back-from-crash">⬅ Back to Games</button>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 font-semibold">Bet Amount (NestCoins)</label>
+                    <input type="number" id="bet-amount-crash" min="1" value="10" class="w-full border rounded px-3 py-2 dark:bg-gray-700 dark:border-gray-600">
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-2 font-semibold">Auto Cashout (x)</label>
+                    <input type="number" id="autocashout" min="0" value="0" class="w-full border rounded px-3 py-2 dark:bg-gray-700 dark:border-gray-600">
+                </div>
+                <div class="flex gap-4 mb-4">
+                    <button id="start-crash" class="choice-btn bg-red-500 text-white px-4 py-2 rounded hover:bg-pink-700 flex-1">🚀 Start</button>
+                    <button id="cashout-crash" class="choice-btn bg-yellow-500 text-white px-4 py-2 rounded hover:bg-purple-700 flex-1" disabled>💰 Cash Out</button>
+                </div>
+                <canvas id = 'crash-canvas' width="1000" height="500" style="background: #0f172a;border-radius: 10px;"></canvas>
+                <div id="multiplier-display" class="text-center text-4xl font-bold mt-4">1.00x</div>
+                <div id = 'result-crash' class="text-center font-bold text-lg mt-4">Place your bet and start!</div>
+                </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold mb-2">📜 Last Crashes</h3>
+                    <ul id = 'crash-history-list' class="flex gap-3 text-xl font-bold"></ul>
+                </div>
+        </main>
+        <main id = 'roulette-game' class="hidden text-center">
+            <h2 class="text-2xl font-bold mb-4">🎡 Roulette</h2>
+            <canvas id = 'roulette-wheel' width="500" height="500" class="mx-auto mb-4"></canvas>
+            <canvas id = 'roulette-table' width="320" height="580" class="mx-auto mb-4"></canvas>
+            <div class="mt-4">
+                <p class="font-bold mb-2">place your bet:</p>
+                <div id="roulette-bets" class="grid grid-cols-12 gap-1">
+
+                </div>
+
+            </div>
+            <div class="mt-4">
+                <input type="number" id="roulette-bet-amount" placeholder="Bet amount" class="border px-2 py-1 rounded">
+                
+            <button id="spin-btn" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded">Spin</button>
+            <p id="result-roulette" class="mt-4 text-lg"></p>
+            <button id="back-from-roulette" class="mt-6 bg-gray-600 text-white px-4 py-2 rounded">⬅ Back</button>
+         
+        </main>
+        <section id="slots" class="hidden max-w-6xl mx-auto px-4 pb-10">
+            <div class="flex items-center justify-between py-4">
+                <h1 class="text-2xl font-extrabold tracking-tight">🎰 Slots</h1>
+                <button class="absolute right-4 hover:bg-gray-700 px-3 py-1 rounded-xl text-white" id="back-from-slots">⬅ Back to Games</button>
+                <div class="flex items-center gap-3 bg-slate-800/60 dark:bg-slate-800 text-slate-100 border border-slate-700 px-4 py-2 rounded-xl">
+                    <span class="text-xs opacity-75"></span>
+                    <span id="balance" class="font-black"></span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <aside class="bg-slate-900/60 dark:bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="block">
+                            <span class="block text-xs text-slate-400 mb-1">Bet per line</span>
+                            <input id="bet" type="number" min="1" step="1" value="10" class="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-100 outline-none">
+                        </label>
+                        <label class="block">
+                            <span class="block text-xs text-slate-400 mb-1">Lines</span>
+                            <select class="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-100" id="lines">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="5" selected>5</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="fast" class="px-3 py-2 rounded-lg bg-slate-800 border-slate-700 text-slate-100">Fast:OFF</button>
+                        <button id="auto"class="px-3 py-2 rounded-lg bg-slate-800 border-slate-700 text-slate-100">Auto:OFF</button>
+                    </div>
+                    <button id="spin-slots" class="w-full px-4 py-3 rounded-xl font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 transition">SPIN</button>
+                    <button id="stop-auto" class="w-full px-4 py-3 rounded-xl font-extrabold text-white bg-rose-600/50 border border-rose-700 disabled:opacity-50">Stop Auto</button>
+                    <div id="status-slots" class="text-sm text-slate-400 bg-slate-900/60 border border-slate-800 rounded-xl p-3">Ready</div>
+
+                    <div class="text-xs text-slate-400 bg-slate-900/60 border border-slate-800 rounded-xl p-3 space-y-1">
+                        <div class="font-semibold text-slate-300">Payouts (3 in line):</div>
+                        <div>⭐ WILD: x50</div>
+                        <div>7️⃣ Seven: x100</div>
+                        <div>💎 Diamond: x40</div>
+                        <div>🔔 Bell: x12</div>
+                        <div>🍋 Lemon: x8</div>
+                        <div>🍒 Cherry: x5</div>
+                        <div class="opacity-70">2 same + WILD half.</div>
+                    </div>
+                </aside>
+                <main class="bg-slate-900/60 dark:bg-slate-900 border border-slate-800 rounded-2xl p-4 relative">
+                    <div id="board" class="grid grid-cols-3 gap-3">
+
+                        <div class="rounded-xl border border-slate-800 bg-slate-950 overflow-hidden h-[380px] flex flex-col">
+                            <div class="flex-1 grid grid-rows-3 divide-y divide-slate-800">
+                                <div class="flex items-center justify-center text-5xl">🍒</div>
+                                <div class="flex items-center justify-center text-5xl">🍋</div>
+                                <div class="flex items-center justify-center text-5xl">🔔</div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-xl border border-slate-800 bg-slate-950 overflow-hidden h-[380px] flex flex-col">
+                            <div class="flex-1 grid grid-rows-3 divide-y divide-slate-800">
+                                <div class="flex items-center justify-center text-5xl">💎</div>
+                                <div class="flex items-center justify-center text-5xl">7️⃣</div>
+                                <div class="flex items-center justify-center text-5xl">⭐</div>
+                            </div>
+                        </div>
+                        
+                        <div class="rounded-xl border border-slate-800 bg-slate-950 overflow-hidden h-[380px] flex flex-col">
+                            <div class="flex-1 grid grid-rows-3 divide-y divide-slate-800">
+                                <div class="flex items-center justify-center text-5xl">🍋</div>
+                                <div class="flex items-center justify-center text-5xl">⭐</div>
+                                <div class="flex items-center justify-center text-5xl">7️⃣</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute left-4 right-4 top-20 h-1 bg-emerald-400/0 rounded-full" id="line-0"></div>
+                    <div class="absolute left-4 right-4 top-48 h-1 bg-emerald-400/0 rounded-full" id="line-1"></div>
+                    <div class="absolute left-4 right-4 top-80 h-1 bg-emerald-400/0 rounded-full" id="line-2"></div>
+                </main>
+                <aside class="bg-slate-900/60 dark:bg-slate-900 border border-slate-800 rounded-2xl p-4">
+                    <div class="font-extrabold mb-2">History</div>
+                    <div id="history-slots" class="space-y-2 max-h-[260px] overflow-auto text-sm text-slate-300"></div>
+                </aside>
+            </div>
+        </section>
+        <script src = 'casino.js'></script>
+        <script src = 'roulette.js'></script>
+        <script src="slots.js"></script>
+</body>
+</html>

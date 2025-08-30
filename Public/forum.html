@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum - NestNest</title>
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme');
+            const html = document.documentElement;
+            const classes = [];
+
+            if(theme === 'cyberpunk') {
+                html.classList.add('dark');
+                classes.push('cyberpunk-theme');
+            }
+            else if(theme === 'barbie') {
+                classes.push('barbie-theme');
+            }
+            else if(theme === 'matrix') {
+                html.classList.add('dark');
+                classes.push('matrix-theme');
+            }
+            else if(theme === 'sunset') {
+                classes.push('sunset-theme');
+            }
+            else if(theme === 'dark'){
+                html.classList.add('dark');
+                classes.push('dark');
+            }
+            const observer = new MutationObserver(()=> {
+                const body = document.body;
+                if(body){
+                    body.classList.add(...classes);
+                    observer.disconnect();
+                }
+            });
+            observer.observe(document.documentElement, {childList:true, subtree: true});    
+        })();
+</script>
+<style>
+    html, body {
+        overflow-x: hidden;
+    }
+    .neon-text {
+        color:#00ffff;
+        animation:pulseNeon 2s ease-in-out infinite;
+
+    }
+    .dropdown-visible {
+        display:block !important;
+    }
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover{
+        transform: scale(1.01);
+        box-shadow: 0 0 15px rgba(0,255,255, 0.5);
+    }
+    @keyframes scaleIn {
+        0%{ transform: scale(0.95); opacity: 0;}
+        100%{transform: scale(1);opacity: 1;}
+    }
+    .animate-scale {
+        animation: scaleIn 0.2s ease-out;
+    }
+    @keyframes messagePop {
+        0%{
+            transform: translateY(10px) scale(0.96);
+            opacity: 0;
+            box-shadow: 0 0 0 transparent;
+        }
+        60%{
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 10px rgba(0,255,255, 0.3);
+        }
+        100%{
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            box-shadow: 0 0 4px rgba(0,255,255, 0.2);
+        }
+    }
+    .animate-scale {
+        animation: messagePop 0.25s ease-out;
+    }
+    body.expanded-chat #chat-box li > div {
+        max-width: 90% !important;
+        font-size: 1.25rem;
+        padding: 1.5rem 2rem;
+        line-height:1.6;
+        transition: all 0.3s ease;
+    }
+
+</style>
+    <script src="https://cdn.tailwindcss.com"></script>
+           <script>
+        tailwind.config = {
+            darkMode:'class',
+            theme:{
+                extend:{
+                    colors:{
+                        background:'#0f172a',
+                        surface: '#1e293b',
+                        neon: '#00ffff',
+                        cyberPink: '#ff00ff',
+                        cyberYellow: '#ffff00',
+                    },
+                    fontFamily:{
+                        futuristic:['Orbitron', 'sans-serif']
+                    },
+                    animation:{
+                        pulseNeon: 'pulseNeon 2s ease-in-out infinite'
+                    },
+                    keyframes:{
+                        pulseNeon:{
+                            '0% 100%':{textShadow: '0 0 5px #00ffff, 0 0 10px #00ffff'},
+                            '50%':{textShadow: '0 0 20px #00ffff, 0 0 30px #00ffff'}
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cyberpunk.css">
+    <link rel="stylesheet" href="barbie.css">
+    <link rel="stylesheet" href="matrix.css">
+    <link rel="stylesheet" href="sunset.css">
+</head>
+<audio src="new-notification-09-352705.mp3" id = "notif-sound" preload = "auto"></audio>
+<body id = "main-body" class=" min-h-screen w-screen overflow-x-hidden transition-colors duration-300">
+
+    <header class="sticky top-0 z-40 w-full bg-white/80 dark:bg-surface/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-surface/60 shadow-sm border-b border-gray-200/70 dark:border-gray-700/60">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white shadow">🪺</div>
+        <h1 class="truncate text-xl sm:text-2xl font-bold text-blue-700 dark:text-blue-400">NestNest chat</h1>
+        </div>
+        <p id = "profile-email" class = "hidden sm:block text-sm text-gray-600 dark:text-gray-300 truncate"></p>
+        <div class = "relative inline-block">
+            <div class = "flex items-center cursor-pointer gap-2 rounded-xl px-2 py-1 gover:bg-gray-100 dark:hover:bg-white/10 transition-colors" id = "menu-toggle">
+            <img src="" alt="avatar" id = "menu-avatar" class = "w-10 h-10 rounded-full border cursor-pointer object-cover shadow-sm">
+            <div class="flex flex-col leading-tight">
+                     <span id = "menu-follow-count" class = "text-[11px] text-gray-500 dark:text-gray-400 whitespace-nowrap"></span>
+                     <span id="profile-coins" class="text-[12px] font-semibold text-yellow-600 dark:text-yellow-400"></span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500 dark:text-gray-400" viewBox = '0 0 24 24' fill = 'none' stroke = 'currentColor'>
+                <path stroke-linecap = 'round' stroke-width = '2' d="m-6 9 6 6 6-6"/>
+
+            </svg>            
+            </div>
+            <div id = "dropdown-menu" class = "absolute right-0 mt-2 w-56 origin-top-right rounded-xl border border-gray-200/80 dark:border-gray-700/70 bg-white dark:bg-gray-800 shadow-lg hidden z-50 ">
+            <a href="profile.html" class = "block px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">👤 Profile</a>
+            <a id = 'login' href="login.html"class = "bblock px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">🔐 Login</a>
+            <a id = 'registerBtn' href="register.html" class = "block px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">📝 Register</a>
+            <a href="shop.html" class="block px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"> 🛒 Shop</a>
+            <a href="casino.html" class="block px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">🎰 Casino</a>
+            <div class = "relative">
+
+            <button id = "theme-toggle-btn" class = "w-full text-left px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"> 🎨 Theme ▾</button>
+            <div id = "theme-options" class = "absolute top-full right-2 mt-1 w-44 rounded-lg bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700/70 rounded-lg shadow-lg hidden z-50 max-h-72 overflow-auto overscroll-contain">
+                <button data-theme = "light" class = "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10">☀️ Light</button>
+                <button data-theme = "dark" class = "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10">🌙 Dark</button>
+                <button data-theme = "cyberpunk" class = "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10">🧬 Cyberpunk</button>
+                <button data-theme = "barbie" class = "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10">🎀 Barbie</button>
+                <button data-theme = "matrix" class = "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10">🟢 Matrix</button>
+                <button data-theme = "sunset" class = "w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-white/10">🌇 Sunset</button>
+                </div>
+            </div>
+            <button id = "upload-btn" class = "w-full text-left px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">🖼 Change avatar</button>
+            <button id = "logout" class = "w-full text-left px-4 py-2.5 text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">🚪 Log out</button>
+          </div>
+
+        </div>
+        <button id = "generate-ai-btn" class = "hidden text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded shadow transition">+ AI POST</button>
+        </div> 
+        </header>
+            
+    <div class="grid grid-cols-12 gap-6 p-6 min-h-screen dark:bg-background">
+
+        <aside class="col-span-2 bg-white border-r flex flex-col p-4 shadow dark:bg-surface w-full card">
+            <h2 class="text-lg font-semibold mb-2 neon-text">Users</h2>
+            <input type="text" id = "user-search" placeholder="Enter login..." class = "mb-4 px-3 py-2 border rounded dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+            <ul id="chat-users" class="space-y-2"></ul>
+            <h3 class = "text-sm font-bold mt-4">Online users</h3>
+            <ul id = "online-users" class = "text-green-600 text-sm space-y-1"></ul>
+            <div id = 'leaderboard' class = 'mt-6 bg-white dark:bg-gray-800 p-3 rounded shadow'>
+                <h3 class = 'text-sm font-bold mb-2'>🏆 Top Players</h3>
+                <ul id = 'leaderboard-list' class="text-sm space-y-1"></ul>
+                <li class = 'text-gray-500'>Loading...</li>
+            </div>
+        </aside>
+
+
+
+        <section class="col-span-4 flex flex-col gap-4 w-full">
+
+            <div id = "chat-box-wrapper" class="bg-white p-4 rounded-xl shadow h-[50vh] overflow-y-auto dark:bg-surface card">
+                <div class = "flex justify-between items-center mb-2">
+                <h2 class="text-xl font-semibold mb-2 neon-text">Private Chat</h2>
+                <div id = "chat-header" class = "flex items-center gap-3 mb-2 hidden">
+                    <img id = "chat-header-avatar" src = "" class = "w-10 h-10 rounded-full border cursor-pointer">
+                    <span id = "chat-header-name" class = "font-semibold text-blue-700 hover:underline cursor-pointer"></span>
+                </div>
+                <button id = "expand-chat" class = "text-sm text-blue-600 hover:underline">🖥 Expand</button>
+                </div>
+                <ul id="chat-box" class="space-y-2 "></ul>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow flex gap-2 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                <input type="text" id="chat-input" placeholder="Type..." class="flex-grow border px-3 py-2 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                <button id="send-chat"
+                    class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Send</button>
+            </div>
+        </section>
+
+        <section id = "posts-section" class="col-span-6 flex flex-col gap-6 w-full">
+
+
+            <div class="bg-white dark:bg-surface p-4 rounded shadow card">
+                <h2 class="text-2xl font-bold mb-4 neon-text">Posts</h2>
+            
+                <ul id="post-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></ul>
+            </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow dark:bg-surface card">
+                <h2 class="text-xl font-semibold mb-2 neon-text">Create a post</h2>
+                <input type="text" id="post-title" placeholder="title" class="w-full mb-2 px-3 py-2 border rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                <textarea placeholder="Description" id="post-content" class="w-full mb-3 px-3 py-2 border rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                    rows="4"></textarea>
+                <input type="file" id="post-image" accept="image/*" class="w-full mb-2" name="image">
+                <button id="create-post"
+                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Publish</button>
+                <p id="post-response" class="text-sm text-gray-600 mt-2"></p>
+            </div>
+
+
+
+
+            <div class="bg-white p-4 rounded shadow dark:bg-surface card">
+                <h2 class="text-xl font-semibold mb-2 neon-text">Public messages</h2>
+                <ul id="messages" class="space-y-3 mb-6"></ul>
+                <input type="text" placeholder="Send to (login)" class="w-full border rounded px-3 py-2 dark:bg-gray-800 dark:bg-gray-800 dark:border-gray-600 dark:text-white" id="to">
+                <textarea rows="2" id="text" placeholder="Type your message..."
+                    class="w-full border rounded px-3 py-2 dark:bg-gray-800 dark:border-gray-600 dark:text-white" ></textarea>
+                <button id="send" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send</button>
+                <p id="response" class="text-sm text-gray-500 "></p>
+            </div>
+        </section>
+    </div>
+
+<div id = "avatar-modal" class = "fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+    <div class = "relative">
+        <img src="" alt="Avatar" id = "avatar-preview" class = "w-[300px] h-[300px] object-cover rounded-full shadow-xl border-4 border-white">
+        <button id = "close-avatar" class = "absolute top-2 right-2 text-white text-2xl">&times;</button>
+    </div>
+</div>
+
+
+        <div id = "cropper-modal" class = "fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+            <div class = "bg-white p-4 rounded shadow-lg">
+                <div class = "text-center mb-2 text-gray-700 font-bold">Crop your avatar</div>
+                <div class = "w-[300px] h-[300px] mx-auto overflow-hidden rounded-full">
+                <img src="" id="cropper-image" class = "max-w-full object-cover">
+
+            </div>
+            <div class = "flex justify-center gap-4 mt-4">
+                <button id = "crop-confirm" class = "bg-blue-600 text-white px-4 py-1 rounded">Save</button>
+                <button id = "crop-cancel" class = "text-gray-500 underline">Cancel</button>
+            </div>
+        </div> 
+        </div>
+        <img id = "avatar-img" class = "hidden" style = "display:none">
+        <input type="file" id = "avatar-upload" accept = "image/*" class = "hidden">
+        <div id = "view-profile-modal" class = "fixed inset-0 bg-black bg-opacity-70 hidden z-50 flex items-center justify-center">
+            
+            <div class = "bg-white rounded-lg shadow-lg p-6 w-96 relative dark:bg-surface">
+             
+                <button id = "close-profile-modal" class = "absolute top-2 right-2 text-gray-600 hover:text-black text-xl">&times;</button>
+                   
+                <div id = "view-profile-content" class = "text-center space-y-">
+                    <div id="profile-header"></div>
+                    <img id = "view-avatar" src = "" class = "w-24 h-24 mx-auto rounded-full border" alt="">
+                    <h3 id = "view-email" class = "text-lg font-bold text-gray-700"></h3>
+                    <p id = "view-bio" class = "text-sm text-gray-600"></p>
+                    <p id = "view-location" class = "text-sm text-gray-500 italic"></p>
+                    <div id="following-block"></div>
+                    <div id="followers-block"></div>
+                    <button id="profile-follow-btn" class="bg-blue-600 text-white px-3 py-1 rounded follow-btn hidden"></button>
+                    <div class = "mt-4">
+                        <h3 class = "font-bold text-sm mb-1">Posts</h3>
+                        <ul id = "profile-posts" class = "text-sm text-gray-700 space-y-2"></ul>
+                    </div>
+                    <div class = "mt-4">
+                        <h3 class = "font-bold text-sm mb-1">Public messages</h3>
+                        <ul id = "profile-messages" class = "text-sm text-gray-700 space-y-2"></ul>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="font-bold text-sm mb-1">💸 Send NestCoins</h3>
+                        <button id="open-transfer" class="bg-yellow-500 text-black px-3 py-1 rounded hover:bg-yellow-400">Send tokens to this user</button>
+
+                    </div>
+                    <div id="transfer-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden z-50 flex items-center justify-center">
+                        <div class="bg-white rounded-lg shadow-lg p-6 w-96 relative dark:bg-surface">
+                            <button id="close-transfer" class="absolute top-2 right-2 text-gray-600 hover:text-black text-xl">&times;</button>
+                            <h3 class="text-lg font-bold mb-2">Transfer NestCoins</h3>
+                            <label class="text-sm block mb-1">To (email)</label>
+                            <input id="transfer-to" type="email" class="w-full mb-3 px-3 py-2 border rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                            <label class="text-sm block mb-1">Amount</label>
+                            <input id="transfer-amount" type="number" class="w-full mb-3 px-3 py-2 border rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white" placeholder="e.g. 10">
+                            <button id="transfer-send" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Send</button>
+                            <p id="transfer-status" class="text-sm mt-2"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+        <script src="forum.js"></script>
+</body>
+
+</html>
