@@ -1,0 +1,31 @@
+# Node / deps
+node_modules/
+npm-debug.log*
+pnpm-lock.yaml
+yarn.lock
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# Build
+dist/
+build/
+.vite/
+coverage/
+
+# Runtime data
+data/
+uploads/
+private_messages.json
+users.json
+public_messages.json
+posts.json
+
+# OS / IDE
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
